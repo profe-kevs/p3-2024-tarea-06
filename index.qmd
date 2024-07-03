@@ -1,3 +1,63 @@
+# Replicando gráficos de Plotly
+
+1.  Utilice este Notebook para replicar cualquiera de los gráficos financieros
+
+2.  List item
+
+3.  List item
+
+de la guía de Plotly (Ver 👉 [aquí](https://plotly.com/python/#financial-charts))
+
 ```{python}
-1 + 1
+# Using plotly.express
+import plotly.express as px
+
+df = px.data.stocks()
+fig = px.line(df, x='date', y="GOOG")
+fig.show()
+```
+
+2. Trate de ver e interpretar los datos del DataFrame. Utlice las funciones que hemos visto en clase, por ejemplo: `min`, `max`, `mean`, `median`, `quantile`, corrobore los datos con la función `describe`.
+
+```{python}
+# Using plotly.express
+import plotly.express as px
+
+df = px.data.stocks()
+fig = px.line(df, x='date', y="FB")
+fig.show()
+```
+
+```{python}
+print(df['FB'].min())
+print(df['FB'].max())
+print(df['FB'].mean())
+print(df['FB'].median())
+print(df['FB'].quantile([.05, .25, .5, .75, .95]))
+```
+
+
+
+3. Con los datos de los ejemplos en plotly (es decir, alguno de los DataFrame), trate de crear:
+ - Un gráfico de caja.
+ - Un gráfico de histograma.
+ - Trate de utiliza la función [pandas.cut](https://pandas.pydata.org/docs/reference/api/pandas.cut.html) para crear 10 segmentos o contenedores (use la propiedad `bin`).
+
+
+```{python}
+fig = px.box(df, y="FB")
+fig.show()
+```
+
+```{python}
+fig = px.histogram(df, x="FB", nbins=10)
+fig.show()
+```
+
+```{python}
+import pandas as pd
+
+
+bins = pd.cut(df['FB'], 10)
+bins.value_counts(sort=False)
 ```
